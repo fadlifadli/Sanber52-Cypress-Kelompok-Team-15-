@@ -1,0 +1,87 @@
+describe('Verify Edit Account Functionality', () => {
+    beforeEach(() => {
+      cy.visit('')
+      cy.login('tester@test.com','P@ssword1')
+      cy.get('.logged-in').should('contain.text','Welcome')
+      cy.accountMenu()
+    })
+    it('Success Edit First Name', () => {
+      cy.editMenu()
+      cy.get('#firstname').clear().type('User')
+      cy.saveBtn()
+      cy.get('.message-success').should('be.visible')
+    })
+    it('Success Edit Last Name', () => {
+      cy.editMenu()
+      cy.get('#lastname').clear().type('Name')
+      cy.saveBtn()
+      cy.get('.message-success').should('be.visible')
+    })
+    it('Failed Edit First Name - Empty Field', () => {
+      cy.editMenu()
+      cy.get('#firstname').clear()
+      cy.saveBtn()
+      cy.get('#firstname-error').should('be.visible')
+    })
+    it('Failed Edit Last Name - Empty Field', () => {
+      cy.editMenu()
+      cy.get('#lastname').clear()
+      cy.saveBtn()
+      cy.get('#lastname-error').should('be.visible')
+    })
+    /*it('Success Edit Email', () => {
+      cy.editMenu()
+      cy.get('#change-email').click()
+      cy.get('#email').clear().type('halo@test.com')
+      cy.get('#current-password').type('P@ssword1')
+      cy.saveBtn()
+      cy.get('.message-success').should('be.visible')
+    })*/
+    it('Failed Edit Email - Invalid Email', () => {
+      cy.editMenu()
+      cy.get('#change-email').click()
+      cy.get('#email').clear().type('test.test.com')
+      cy.get('#current-password').type('P@ssword1')
+      cy.saveBtn()
+      cy.get('#email-error').should('be.visible')
+    })
+    it('Failed Edit Email - Wrong Password', () => {
+      cy.editMenu()
+      cy.get('#change-email').click()
+      cy.get('#email').clear().type('test@test.com')
+      cy.get('#current-password').type('pass')
+      cy.saveBtn()
+      cy.get('.message-error').should('be.visible')
+    })
+    it('Failed Change Password - Wrong Current Password', () => {
+      cy.changePass()
+      cy.get('#current-password').type('pass')
+      cy.get('#password').type('rndmP@ass')
+      cy.get('#password-confirmation').type('rndmP@ass')
+      cy.saveBtn()
+      cy.get('.message-error').should('be.visible')
+    })
+    it('Failed Change Password - Weak New Password', () => {
+      cy.changePass()
+      cy.get('#current-password').type('P@ssword')
+      cy.get('#password').type('pass')
+      cy.get('#password-error').should('contain.text', 'Minimum length of this field must be equal or greater than 8 symbols')
+     
+    })
+    it('Failed Change Password - Wrong Confirm New Password', () => {
+      cy.changePass()
+      cy.get('#current-password').type('P@ssword1')
+      cy.get('#password').type('rndmP@ass')
+      cy.get('#password-confirmation').type('pass')
+      cy.saveBtn()
+      cy.get('#password-confirmation-error').should('be.visible')
+    })
+    /*it('Success Change Password', () => {
+      cy.changePass()
+      cy.get('#current-password').type('P@ssword1')
+      cy.get('#password').type('rndmP@ass')
+      cy.get('#password-confirmation').type('rndmP@ass')
+      cy.saveBtn()
+      cy.get('.message-error').should('be.visible')
+    })*/
+  })

@@ -19,6 +19,11 @@ Cypress.Commands.add('login', (email, password) => {
     cy.get('#send2').click();
 })
 
+Cypress.Commands.add('CustAddress', () => {
+    cy.get('.items > :nth-child(6) > a').click()
+    cy.get('.box-address-billing > .box-actions > .action > span').click()
+})
+
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })

@@ -16,6 +16,6 @@ describe('My First Test Cypress', () => {
     cy.get('#form-validate > .actions-toolbar > div.primary> .action > span').click()
 
     
-    // button[title='Create an Account'] > span
+    
   })
 })

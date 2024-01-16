@@ -42,4 +42,4 @@ describe('Positif Test Case', () => {
 })
 
 
-cy.get('#firstname-error')
+// cy.get('#firstname-error')
